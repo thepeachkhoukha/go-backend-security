@@ -1,6 +1,6 @@
 package com.lezgo.authentication.services;
 
-import com.lezgo.authentication.repository.UsersRespository;
+import com.lezgo.authentication.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,11 +14,12 @@ import java.util.ArrayList;
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private UsersRespository usersRespository;
+    private UsersRepository usersRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        com.lezgo.authentication.entities.User user = usersRespository.findByUsername(username);
+        com.lezgo.authentication.entities.User user = usersRepository.findByUsername(username);
         return new User(user.getUsername(), user.getPassword(), new ArrayList<>());
     }
 }
+

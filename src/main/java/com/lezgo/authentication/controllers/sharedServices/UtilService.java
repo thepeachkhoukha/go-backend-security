@@ -1,16 +1,15 @@
 package com.lezgo.authentication.controllers.sharedServices;
 
 
-import com.lezgo.authentication.repository.UsersRespository;
+import com.lezgo.authentication.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
 public class UtilService {
     @Autowired
-    private UsersRespository usersRespository;
+    private UsersRepository usersRepository;
 
     public boolean userExists(String username){
-        System.out.println(usersRespository.findByUsername(username));
-        return usersRespository.findByUsername(username) != null;
+        return usersRepository.findByUsername(username) != null;
     }
 }

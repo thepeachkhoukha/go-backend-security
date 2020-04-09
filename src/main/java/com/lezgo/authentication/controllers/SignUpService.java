@@ -6,7 +6,7 @@ import com.lezgo.authentication.entities.UserDetails;
 import com.lezgo.authentication.models.AuthenticationResponse;
 import com.lezgo.authentication.models.SignUpRequest;
 import com.lezgo.authentication.repository.UserDetailsRepository;
-import com.lezgo.authentication.repository.UsersRespository;
+import com.lezgo.authentication.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,7 +23,7 @@ public class SignUpService {
     private UserDetailsRepository userDetailsRepository;
 
     @Autowired
-    private UsersRespository usersRespository;
+    private UsersRepository usersRepository;
 
     @Transactional
     public ResponseEntity signUp(SignUpRequest signUpRequest) {
@@ -35,7 +35,7 @@ public class SignUpService {
                     .username(signUpRequest.getUsername())
                     .password(bCryptPasswordEncoder.encode(signUpRequest.getPassword()))
                     .build();
-            usersRespository.save(user);
+            usersRepository.save(user);
 
             UserDetails userDetails = UserDetails.builder()
                     .username(signUpRequest.getUsername())
@@ -54,7 +54,7 @@ public class SignUpService {
     }
 
     private boolean userExists(String username) {
-        System.out.println(usersRespository.findByUsername(username));
-        return usersRespository.findByUsername(username) != null;
+        System.out.println(usersRepository.findByUsername(username));
+        return usersRepository.findByUsername(username) != null;
     }
 }
